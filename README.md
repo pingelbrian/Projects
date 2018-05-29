@@ -6,7 +6,7 @@ of input information. Unfortunately the data I restricted the model to using was
 ended up making a generalized guess that anywhere would likely give the average fare of New York City.
 
 Raytracer.cpp:
-Utilizing the OpenGL library I utilized physics formula to simulate the interaction between light and objects of different materials to
+Utilizing the OpenGL library I utilized physics formulae to simulate the interaction between light and objects of different materials to
 have an accurate depiction of the lights behavior. A few passes have created adjustments that have optimized the time it takes to render
 a frame as well as mimic the behavior of refraction, something that has caused trouble for some time. Though refraction is not functional
 it looks the closest to how it should look now as opposed to how it functioned previously showing no distortion.
