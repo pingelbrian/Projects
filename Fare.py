@@ -27,7 +27,7 @@ for i in range(setSize):
 	G = g.readline()
 	M = F.split(",")
 	N = G.split(",")
-	#The DateTime needs to be split
+	#The DateTime needs to be split and times converted into minutes from 00:00 and days of the week are binary values
 	DateTime = M[5].split(' ')
 	Date = DateTime[0]
 	Time = DateTime[1]
@@ -51,6 +51,9 @@ for m in range(10000):
 Sum = 0
 for n in range(10000):
 	Sum = Sum + SampleY[n]
+
+#Figure out the average fare price for comparison
+
 Sum = Sum / 10000
 print Sum
 L.fit(SampleX,SampleY)
@@ -65,6 +68,8 @@ South = 40.477399
 West = -74.25909
 East = -73.700009
 
+#Find the distance that we'll generate test points over and define an increment
+
 WtoEInc = abs(West - East)
 WtoEInc = WtoEInc/Increment
 NtoSInc = abs(North - South)
@@ -73,6 +78,7 @@ CoordX = np.zeros(shape = (Increment, 1))
 CoordY = np.zeros(shape = (Increment, 1))
 Locations = np.zeros(shape = (Increment * Increment, 2))
 
+#initiate a coordinates pair matrix to feed into the model
 for Lat in range(Increment):
 	CoordY[Lat] = North - (Lat * NtoSInc)
 	for Long in range(Increment):
@@ -83,6 +89,9 @@ for X in range(Increment):
 Tester = np.zeros(shape = (Increment * Increment, 10))
 #720
 #900
+#Create a set of data to feed into the model and make predictions on
+
+#Set time as minutes after midnight, time is variable to test times of day
 Tester[:,0] = 720
 Tester[:,1] = Locations[:,0]
 Tester[:,2] = Locations[:,1]
