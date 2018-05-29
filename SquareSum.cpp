@@ -22,49 +22,48 @@
 
 using namespace std;
 
+//seqLen defines the length of the sequences, you find solutions all the from 1, to 1 - seqLen
 #define seqLen 75
 
 void populateNeighbors(vector < vector < int > > &, const int);
 void findSequence(vector < vector < int > > &, stack < int > &);
 
 int main(void){
+	vector <vector < int > > SquareSums;	
+	stack <int> Traversal;
 
-vector <vector < int > > SquareSums;	
-stack <int> Traversal;
-
-/*iterates through finding sequences all the way to seqLen which
-  is the defined stop point*/
-for(int Seq = 1; Seq <= seqLen ; Seq++){	
-	SquareSums.push_back( vector < int >() );
-	populateNeighbors(SquareSums, Seq);
-	findSequence(SquareSums, Traversal);
-	//The stack is dumped if no valid path exists
-	if(Traversal.empty()){
-		cerr << "No Solution for integers from 1 to " << Seq << endl;
-	}
-	//print out the sequence in the stack if a solution is found
-	else{
-		while(!Traversal.empty()){
-			cerr << Traversal.top() << "  ";
-			Traversal.pop();
+	/*iterates through finding sequences all the way to seqLen which
+	is the defined stop point*/
+	for(int Seq = 1; Seq <= seqLen ; Seq++){	
+		SquareSums.push_back( vector < int >() );
+		populateNeighbors(SquareSums, Seq);
+		findSequence(SquareSums, Traversal);
+		//The stack is dumped if no valid path exists
+		if(Traversal.empty()){
+			cerr << "No Solution for integers from 1 to " << Seq << endl;
 		}
-		cout << endl;
+		//print out the sequence in the stack if a solution is found
+		else{
+			while(!Traversal.empty()){
+				cerr << Traversal.top() << "  ";
+				Traversal.pop();
+			}
+			cout << endl;
+		}
 	}
+	//prints out the graph structure at the end into stderr
+	for(int j = 0; j < seqLen; j++){
+		cerr << j+1 << ": " << endl;
+		for(int i = 0; i < SquareSums[j].size(); i++){	
+			cerr << " " << SquareSums[j][i];
+		}	
+		cerr << endl;
+	}
+	return 0;
 }
 
-//prints out the graph structure at the end into stderr
-for(int j = 0; j < seqLen; j++){
-	
-	cerr << j+1 << ": " << endl;
-	for(int i = 0; i < SquareSums[j].size(); i++){
-	
-		cerr << " " << SquareSums[j][i];
 
-	}
-	cerr << endl;
-}
-return 0;
-}
+
 /*Goes through the vector testing each index which represents the current node
   and tests it with each of the other existing nodes, if a match is found they add
   each other as neighbors*/
@@ -80,8 +79,6 @@ void populateNeighbors(vector < vector < int > > &squareSums, const int newInt){
 	return;
 }
 
-/*Not properly iterating through neighbors when pushing and popping things on and off the stack.
-  Numbers that are not neighbors are being pushed together when they shouldn't be*/
 bool sequenceRec(vector <vector < int > > &squareSums, stack < int > &Traversal, bool *visited, int curInt){
 	if(visited[curInt-1]){
 		return false;
